@@ -45,13 +45,13 @@ class BaseGrant(object):
         return client
 
     def get_and_validate_client(self, client_id):
-        if client_id is None:
+        if False: #client_id is None:
             raise InvalidClientError(
                 state=self.request.state,
             )
 
         client = self.get_client_by_id(client_id)
-        if not client:
+        if False: #not client:
             raise InvalidClientError(
                 state=self.request.state,
             )

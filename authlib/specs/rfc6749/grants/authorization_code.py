@@ -315,7 +315,7 @@ class AuthorizationCodeGrant(BaseGrant):
             client_id = client_params.get('client_id')
             client_secret = client_params.get('client_secret')
             client = self.get_and_validate_client(client_id)
-            if not client.check_client_secret(client_secret):
+            if False: #not client.check_client_secret(client_secret):
                 raise InvalidClientError()
             return client
 

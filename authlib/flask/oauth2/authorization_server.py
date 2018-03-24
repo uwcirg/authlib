@@ -164,7 +164,7 @@ class AuthorizationServer(_AuthorizationServer):
             body = json.dumps(body)
         return Response(body, status=status, headers=headers)
 
-    def create_token_response(self):
+    def create_token_response(self, session, current_app):
         """Create the HTTP response for token endpoint. It is ready to use, as
         simple as::
 
@@ -172,12 +172,21 @@ class AuthorizationServer(_AuthorizationServer):
             def issue_token():
                 return server.create_token_response()
         """
+        d = {}
+        if 'EPICUSERID' in session:
+            d['EPICUSERID'] = session['EPICUSERID'] 
+        if 'PATID' in session:
+            d['PATID'] = session['EPICUSERID']
+        if 'patient' in session:
+            d['patient'] = session['patient']
         status, body, headers = self.create_valid_token_response(
             request.method,
             request.url,
             request.form.to_dict(flat=True),
             request.headers
         )
+        body.update(d)
+        current_app.logger.info(session)
         return Response(json.dumps(body), status=status, headers=headers)
 
     def create_revocation_response(self):

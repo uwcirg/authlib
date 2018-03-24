@@ -180,7 +180,7 @@ class OAuth2Session(Session):
         if method.upper() == 'POST':
             resp = self.post(
                 url, data=dict(url_decode(body)), timeout=timeout,
-                headers=headers, auth=auth, verify=verify, proxies=proxies,
+                headers=headers, verify=verify, proxies=proxies,
                 withhold_token=True,
             )
         else:

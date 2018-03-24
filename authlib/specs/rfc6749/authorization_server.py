@@ -66,9 +66,9 @@ class AuthorizationServer(object):
         request = OAuth2Request(method, uri, body, headers)
         for grant_cls in self._token_endpoints:
             if grant_cls.check_token_endpoint(request):
-                if method in grant_cls.ACCESS_TOKEN_METHODS:
-                    return grant_cls(
-                        request, self.query_client, self.token_generator)
+                # if method in grant_cls.ACCESS_TOKEN_METHODS:
+                return grant_cls(
+                    request, self.query_client, self.token_generator)
         raise InvalidGrantError()
 
     def create_valid_authorization_response(self, method, uri, body, grant_user):
